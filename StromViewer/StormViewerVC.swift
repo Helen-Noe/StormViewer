@@ -32,6 +32,7 @@ class StromViewerVC: UIViewController{
 		}
 //		print(picturesName)
 		tableView.dataSource = self
+		tableView.delegate = self
 		
 		tableView.tableFooterView = UIView()
 		setupTableView()
@@ -53,12 +54,17 @@ extension StromViewerVC: UITableViewDelegate,UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 	return picturesName.count
   }
+	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 	let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 	cell.textLabel?.text = picturesName[indexPath.row]
 	return cell
   }
+	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		<#code#>
+		let imageVC = ImageViewController()
+		imageVC.modalPresentationStyle = .fullScreen
+		self.navigationController?.pushViewController(imageVC, animated: true)
+		imageVC.imageName = picturesName[indexPath.row]
 	}
 }
